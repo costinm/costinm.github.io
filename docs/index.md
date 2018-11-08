@@ -4,6 +4,10 @@ title: My notes
 
 # Hello world
 
+Experimenting with github pages. 
+
+And g+ comments.
+
 <script src="https://apis.google.com/js/plusone.js"></script>
 <div id="comments"></div>
 <script>
