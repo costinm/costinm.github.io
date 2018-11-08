@@ -7,4 +7,3 @@ type: markdown
 ---
 
 {% assign docs = site.blog %}
-{% include section-index.html %}
