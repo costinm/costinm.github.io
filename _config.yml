@@ -85,4 +85,8 @@ exclude:
   - README.md
   - CNAME
 
+include:
+  - .well-known/atproto-did
+
+
 theme: jekyll-theme-minimal
