@@ -85,4 +85,16 @@ include:
   - .well-known/
 
 
-theme: jekyll-theme-minima
+theme: minima
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+minima:
+  skin: classic
+  social_links:
+    - platform: "bluesky"
+      user_url: "https://bsky.app/profile/costinm.bsky.social"
+    - platform: "github"
+      user_url: "https://github.com/costinm/costinm"
