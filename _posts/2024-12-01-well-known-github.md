@@ -17,6 +17,9 @@ published with Jekyll (usually). Adding to _config.yaml 'include' doesn't seem t
 
 Adding comments based on https://www.coryzue.com/writing/bluesky-comments/ -
 
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/bluesky-comments@latest/dist/bluesky-comments.umd.js"></script>
 <script>
         document.addEventListener('DOMContentLoaded', function() {
             const uri = 'https://bsky.app/profile/costintest.bsky.h.webinf.info/post/3lccbspcq7k2j';
