@@ -24,11 +24,11 @@ Next step I'm still struggling with is adding the comments based on [Coryzune](h
 
 <div id="bluesky-comments"></div>
 
-<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://unpkg.com/bluesky-comments@latest/dist/bluesky-comments.umd.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/bluesky-comments@latest/dist/bluesky-comments.umd.js" crossorigin></script>
 <script>
         document.addEventListener('DOMContentLoaded', function() {
-                initBlueskyComments('bluesky-comments', 'https://bsky.app/profile/costinm.bsky.social/post/3lccff5e2us27');
+                initBlueskyComments('bluesky-comments', 'costinm.bsky.social');
         });
 </script>
