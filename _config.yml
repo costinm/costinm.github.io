@@ -80,9 +80,7 @@ exclude:
   - README.md
   - CNAME
 
-include:
-  - .well-known/atproto-did
-  - .well-known/
+include: [".well-known"]
 
 
 theme: minima
