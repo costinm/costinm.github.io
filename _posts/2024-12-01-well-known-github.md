@@ -1,15 +1,20 @@
 ---
 layout: post
-title: Github and well-known
+title: Github pages as Bsky handle 
 order: 10
 type: markdown
-overview: How to use well-known in github
+overview: How to use a [user].github.io as Bsky handle.
 ---
 
-Experimenting with github and atproto. Since each github user has a github.io domain - it 
-would seem natural to use it as a handle in Bsky, in particular for a 'professional' profile and with relatively strong identity.
+I'm experimenting with github and atproto. Since each github user has a github.io 
+domain - it would seem natural to use it as a handle in Bsky, in particular for a 'professional' profile and with relatively strong identity/verification.
 
-This is even more useful for project accounts.
+The github profiles are associated with organizations, there is some vetting before getting permissions in mainstream projects - and some reputation that can be to some extent used in establishing trust. There are of course plenty of fake profiles and malicious actors - but still a bit better trust than a random name.
+
+This is even more useful for popular github projects.
+
+What seems required is adding a .well-known/atproto-did in the [USER].github.io repo,
+and configuring Github pages to preserve it.
 
 Adding the .well-known/ directory to a github repo didn't work initially. The github.io site is published with Jekyll (usually), and adding to _config.yaml 'include' didn't seem to help. However, [this site](https://github.com/wojtek-kalicinski/wojtek-kalicinski.github.io) suggests `include [".well-known"]` - I was trying the list and without quotes - and it did the trick.
 
@@ -24,9 +29,6 @@ Next step I'm still struggling with is adding the comments based on [Coryzune](h
 <script src="https://unpkg.com/bluesky-comments@latest/dist/bluesky-comments.umd.js"></script>
 <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const uri = 'https://bsky.app/profile/costinm.bsky.social/post/3laymuw5et22v';
-            if (uri) {
-                initBlueskyComments('bluesky-comments', uri);
-            }
+                initBlueskyComments('bluesky-comments', 'https://bsky.app/profile/costinm.bsky.social/post/3lccff5e2us27');
         });
 </script>
