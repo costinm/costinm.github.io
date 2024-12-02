@@ -30,6 +30,6 @@ Next step I'm still struggling with is adding the comments based on [Coryzune](h
 <script>
         document.addEventListener('DOMContentLoaded', function() {
                 console.log("Loaded bsky");
-                initBlueskyComments('bluesky-comments', 'costinm.bsky.social');
+                initBlueskyComments('bluesky-comments', {author:'costinm.bsky.social'});
         });
 </script>
