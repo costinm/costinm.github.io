@@ -30,6 +30,19 @@ layout: base
     {{ content }}
   </div>
 
+
+  <div id="bluesky-comments"></div>
+
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/bluesky-comments@0.4.0/dist/bluesky-comments.umd.js" crossorigin></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log("Loaded bsky");
+      initBlueskyComments('bluesky-comments', {author:'costinm.bsky.social'});
+    });
+  </script>
+
   {%- if site.disqus.shortname -%}
     {%- include disqus_comments.html -%}
   {%- endif -%}
