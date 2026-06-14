@@ -1,0 +1,31 @@
+title: Costin's Blog
+description: Notes, projects, and technical writing.
+url: "https://costinm.github.io"
+baseurl: ""
+
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+author:
+  name: Costin
+
+minima:
+  social_links:
+    - platform: bluesky
+      user_url: "https://bsky.app/profile/costinm.bsky.social"
+
+permalink: /:year/:month/:day/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: true
+      bsky:
+        post: true
+

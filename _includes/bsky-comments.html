@@ -1,0 +1,103 @@
+<section class="bsky-comments" data-bsky-comments data-bsky-uri="{{ include.uri | escape }}" data-bsky-url="{{ include.url | escape }}">
+  <h2>Comments</h2>
+  <p class="bsky-comments__meta">
+    Reply on
+    {%- if include.url -%}
+      <a href="{{ include.url }}">Bluesky</a>
+    {%- else -%}
+      Bluesky
+    {%- endif -%}
+    to comment.
+  </p>
+  <div class="bsky-comments__status">Loading comments...</div>
+  <ul class="bsky-comments__list"></ul>
+</section>
+
+<script>
+(function () {
+  function text(value) {
+    return document.createTextNode(value == null ? "" : String(value));
+  }
+
+  function postUrl(post) {
+    var uri = post && post.uri;
+    var handle = post && post.author && post.author.handle;
+    if (!uri || !handle) return "";
+    var rkey = uri.split("/").pop();
+    return "https://bsky.app/profile/" + encodeURIComponent(handle) + "/post/" + encodeURIComponent(rkey);
+  }
+
+  function collectReplies(node, out) {
+    if (!node || !Array.isArray(node.replies)) return out;
+    node.replies.forEach(function (reply) {
+      if (reply && reply.post) out.push(reply.post);
+      collectReplies(reply, out);
+    });
+    return out;
+  }
+
+  function renderComment(post) {
+    var item = document.createElement("li");
+    item.className = "bsky-comment";
+
+    var header = document.createElement("div");
+    header.className = "bsky-comment__header";
+
+    var author = document.createElement("a");
+    author.className = "bsky-comment__author";
+    author.href = postUrl(post) || "#";
+    author.appendChild(text(post.author && (post.author.displayName || post.author.handle) || "Bluesky user"));
+
+    var handle = document.createElement("span");
+    handle.className = "bsky-comment__handle";
+    handle.appendChild(text(post.author && post.author.handle ? "@" + post.author.handle : ""));
+
+    var date = document.createElement("span");
+    date.className = "bsky-comment__date";
+    var createdAt = post.record && post.record.createdAt;
+    date.appendChild(text(createdAt ? new Date(createdAt).toLocaleString() : ""));
+
+    header.appendChild(author);
+    header.appendChild(handle);
+    header.appendChild(date);
+
+    var body = document.createElement("div");
+    body.className = "bsky-comment__text";
+    body.appendChild(text(post.record && post.record.text || ""));
+
+    item.appendChild(header);
+    item.appendChild(body);
+    return item;
+  }
+
+  document.querySelectorAll("[data-bsky-comments]").forEach(function (root) {
+    var uri = root.getAttribute("data-bsky-uri");
+    var status = root.querySelector(".bsky-comments__status");
+    var list = root.querySelector(".bsky-comments__list");
+    var api = "https://public.api.bsky.app/xrpc/app.bsky.feed.getPostThread?depth=50&parentHeight=0&uri=" + encodeURIComponent(uri);
+
+    fetch(api)
+      .then(function (response) {
+        if (!response.ok) throw new Error("Bluesky returned " + response.status);
+        return response.json();
+      })
+      .then(function (data) {
+        var replies = collectReplies(data.thread, []);
+        status.textContent = "";
+        if (!replies.length) {
+          status.className = "bsky-comments__empty";
+          status.textContent = "No comments yet.";
+          return;
+        }
+        replies.forEach(function (post) {
+          list.appendChild(renderComment(post));
+        });
+      })
+      .catch(function () {
+        status.className = "bsky-comments__error";
+        status.textContent = "Could not load Bluesky comments.";
+      });
+  });
+})();
+</script>
+

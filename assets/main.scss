@@ -1,0 +1,56 @@
+---
+---
+
+@import "minima";
+
+.bsky-comments {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e8e8e8;
+}
+
+.bsky-comments h2 {
+  font-size: 1.25rem;
+}
+
+.bsky-comments__meta,
+.bsky-comments__empty,
+.bsky-comments__error {
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.bsky-comments__list {
+  list-style: none;
+  margin-left: 0;
+}
+
+.bsky-comment {
+  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid #e8e8e8;
+  border-radius: 6px;
+}
+
+.bsky-comment__header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+
+.bsky-comment__author {
+  font-weight: 600;
+}
+
+.bsky-comment__handle,
+.bsky-comment__date {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.bsky-comment__text {
+  white-space: pre-wrap;
+}
+

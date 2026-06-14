@@ -1,0 +1,49 @@
+name: Post new blog entries to Bluesky
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Show posts that would be published without posting"
+        required: false
+        default: "false"
+  push:
+    branches:
+      - main
+    paths:
+      - "_posts/**"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: post-to-bsky
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Post unpublished entries
+        env:
+          BSKY_HANDLE: costinm.bsky.social
+          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
+          SITE_URL: https://costinm.github.io
+          DRY_RUN: ${{ github.event.inputs.dry_run || 'false' }}
+        run: python3 scripts/post_to_bsky.py
+
+      - name: Commit Bluesky thread references
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add _posts
+          if git diff --cached --quiet; then
+            echo "No post metadata changes to commit."
+          else
+            git commit -m "Record Bluesky blog post references"
+            git push
+          fi
+
